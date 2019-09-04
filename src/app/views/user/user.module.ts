@@ -8,10 +8,14 @@ import { UserLandingPageComponent } from './user-landing-page/user-landing-page.
 import { MatListModule } from '@angular/material/list';
 import { SafePageComponent } from './containers/safe-page/safe-page.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AddSafeItemDialogComponent } from './containers/add-safe-item-dialog/add-safe-item-dialog.component';
 
 
 @NgModule({
-  declarations: [UserLandingPageComponent, SafePageComponent],
+  declarations: [UserLandingPageComponent, SafePageComponent, AddSafeItemDialogComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -19,8 +23,12 @@ import { MatIconModule } from '@angular/material/icon';
     CoolLayoutModule,
     MatListModule,
     MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatDialogModule
 
   ],
-  exports: [SafePageComponent]
+  exports: [SafePageComponent, AddSafeItemDialogComponent],
+  entryComponents: [AddSafeItemDialogComponent]
 })
 export class UserModule { }

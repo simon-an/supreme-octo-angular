@@ -1,14 +1,26 @@
 <cool-header-with-sidenav>
-    <ng-container navlist>
-      <mat-nav-list>
-        <a mat-list-item routerLink="/home">Home</a>
-        <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/user">Back</a>
-      </mat-nav-list>
-    </ng-container>
-    <!-- Content Start -->
-    <ng-container body>
-      <cool-item-list [items]="items$ | async"></cool-item-list>
-    </ng-container>
-    <!-- Content End -->
-  </cool-header-with-sidenav>
+  <ng-container navlist>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home">Home</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLink="/user">Back</a>
+    </mat-nav-list>
+  </ng-container>
+  <ng-container toolbar> </ng-container>
+  <!-- Content Start -->
+  <ng-container body>
+    <cool-item-list [items]="items$ | async"></cool-item-list>
+    <!-- <mat-toolbar>
+      <span class="spacer"></span>
+      <button mat-mini-fab color="primary">
+        <mat-icon aria-label="add new Safe Items">add</mat-icon>
+      </button></mat-toolbar> -->
+  </ng-container>
+  <!-- Content End -->
+</cool-header-with-sidenav>
+<mat-toolbar class="sticky">
+  <span class="spacer"></span>
+  <button mat-mini-fab color="primary">
+    <mat-icon aria-label="add new Safe Items">add</mat-icon>
+  </button></mat-toolbar
+>
