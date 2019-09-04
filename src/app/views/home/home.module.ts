@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
-import { CoolLayoutModule } from 'src/app/cool-layout/cool-layout.module';
+import { CoolLayoutModule } from '~layout/cool-layout.module';
 import { HomeLandingPageComponent } from './home-landing-page/home-landing-page.component';
 import { MatListModule } from '@angular/material/list';
 
