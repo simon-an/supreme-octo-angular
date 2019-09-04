@@ -10,7 +10,7 @@ interface ItemMap { [key: string]: SafeItem[]; }
 })
 export class SafeService {
 
-  safes: Subject<Safe[]> = new BehaviorSubject<Safe[]>([
+  safes: BehaviorSubject<Safe[]> = new BehaviorSubject<Safe[]>([
     {
       id: '1',
       active: true,
@@ -29,7 +29,7 @@ export class SafeService {
     }
   ]);
 
-  items: Subject<ItemMap> = new BehaviorSubject<ItemMap>({
+  items: BehaviorSubject<ItemMap> = new BehaviorSubject<ItemMap>({
     1: [
       { id: '1', name: 'Fahrrad', price: 55.5, safeId: '1' },
       { id: '2', name: 'Laptop', price: 999.99, safeId: '1' }
@@ -51,5 +51,18 @@ export class SafeService {
 
   getItems(safeId: string): Observable<SafeItem[]> {
     return this.items.asObservable().pipe(map((items: ItemMap) => items[safeId]));
+  }
+
+  addItem(safeId: string, safeItem: SafeItem): Observable<SafeItem> {
+    const newId = `${Math.random() * 1000000}`;
+    safeItem.id = newId;
+    const newMap: ItemMap = {
+      ...this.items.getValue()
+    };
+    newMap[safeId] = [...newMap[safeId], safeItem];
+
+    this.items.next(newMap);
+
+    return of(safeItem);
   }
 }

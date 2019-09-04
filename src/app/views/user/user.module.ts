@@ -11,13 +11,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddSafeItemDialogComponent } from './containers/add-safe-item-dialog/add-safe-item-dialog.component';
+import { SafeItemFormComponent } from './components/safe-item-form/safe-item-form.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [UserLandingPageComponent, SafePageComponent, AddSafeItemDialogComponent],
+  declarations: [UserLandingPageComponent, SafePageComponent, AddSafeItemDialogComponent, SafeItemFormComponent],
   imports: [
     CommonModule,
+    FormsModule,
     UserRoutingModule,
     SafeModule,
     CoolLayoutModule,
@@ -25,10 +30,12 @@ import { AddSafeItemDialogComponent } from './containers/add-safe-item-dialog/ad
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
 
   ],
-  exports: [SafePageComponent, AddSafeItemDialogComponent],
+  exports: [SafePageComponent, AddSafeItemDialogComponent, SafeItemFormComponent],
   entryComponents: [AddSafeItemDialogComponent]
 })
 export class UserModule { }

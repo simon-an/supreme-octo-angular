@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { SafeItem } from '~core/model';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'cool-add-safe-item-dialog',
@@ -8,9 +10,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class AddSafeItemDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialogRef: MatDialogRef<AddSafeItemDialogComponent, SafeItem>) { }
 
   ngOnInit() {
+  }
+
+  storeItem(safeItem: SafeItem) {
+    this.dialogRef.close(safeItem);
   }
 
 }

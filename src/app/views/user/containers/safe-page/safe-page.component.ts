@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { Safe, SafeItem } from '~core/model';
 import { SafeService } from '~core/services';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { AddSafeItemDialogComponent } from '../add-safe-item-dialog/add-safe-item-dialog.component';
 
 @Component({
@@ -27,7 +27,25 @@ export class SafePageComponent implements OnInit {
   ) { }
 
   openDialog() {
-    this.matDialog.open(AddSafeItemDialogComponent);
+    const dialogRef: MatDialogRef<AddSafeItemDialogComponent, SafeItem> =
+      this.matDialog.open(
+        AddSafeItemDialogComponent,
+        {
+          height: '400px',
+          width: '600px',
+          disableClose: true
+        } as MatDialogConfig
+      );
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        withLatestFrom(this.safe$),
+        switchMap(([result, safe]: [SafeItem, Safe]) => this.safeService.addItem(safe.id, result))
+      )
+      .subscribe((result: SafeItem) => {
+        console.log(`Dialog result: ${result}`);
+      }, console.error, () => console.log('completed'));
   }
 
   ngOnInit() {
