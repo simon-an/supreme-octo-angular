@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "ngx-safe"
+  "defaultProject": "ngx-safe",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
