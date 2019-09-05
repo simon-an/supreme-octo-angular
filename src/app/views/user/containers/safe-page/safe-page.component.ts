@@ -6,6 +6,10 @@ import { Safe, SafeItem } from '~core/model';
 import { SafeService } from '~core/services';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { AddSafeItemDialogComponent } from '../add-safe-item-dialog/add-safe-item-dialog.component';
+import { Store, select } from '@ngrx/store';
+import { State } from '~state/.';
+import { selectSafeByUserId } from '~state/selectors/safe.selector';
+import { UserLoadSafes } from '~state/actions/safe.actions';
 
 @Component({
   selector: 'cool-safe-page',
@@ -17,6 +21,7 @@ export class SafePageComponent implements OnInit {
 
   safeId$: Observable<string>;
   safe$: Observable<Safe>;
+  safeNgrx$: Observable<Safe>;
   items$: Observable<SafeItem[]>;
 
 
@@ -24,6 +29,7 @@ export class SafePageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private safeService: SafeService,
     private matDialog: MatDialog,
+    private store$: Store<State>
   ) { }
 
   openDialog() {
@@ -49,6 +55,12 @@ export class SafePageComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.store$.dispatch(new UserLoadSafes());
+
+    this.safeNgrx$ = this.store$.pipe(
+      select(selectSafeByUserId, { userId: '123' })
+      );
 
     this.safeId$ = this.activatedRoute.paramMap.
       pipe(

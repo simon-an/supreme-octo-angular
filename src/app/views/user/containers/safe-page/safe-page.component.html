@@ -10,6 +10,7 @@
   <!-- Content Start -->
   <ng-container body>
     Value: {{ (safe$ | async).value }}€
+    Ngrx: {{ (safeNgrx$ | async) | json }}
     <cool-item-list [items]="items$ | async"></cool-item-list>
     <!-- <mat-toolbar>
       <span class="spacer"></span>
