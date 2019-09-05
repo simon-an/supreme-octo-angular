@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom, tap } from 'rxjs/operators';
 import { Safe, SafeItem } from '~core/model';
 import { SafeService } from '~core/services';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
@@ -55,9 +55,15 @@ export class SafePageComponent implements OnInit {
         map((paramMap: ParamMap) =>
           paramMap.get('safeId')));
 
-    this.safe$ = this.safeId$.pipe(
-      switchMap((safeId: string) => this.safeService.getSafe(safeId))
+    // this.safe$ = this.safeId$.pipe(
+    //   switchMap((safeId: string) => this.safeService.getSafe(safeId))
+    // );
+    this.safe$ = this.activatedRoute.data.pipe(
+      map((data: { safe: Safe }) => {
+        return data.safe;
+      })
     );
+
     this.items$ = this.safeId$.pipe(
       switchMap((safeId: string) => this.safeService.getItems(safeId))
     );
